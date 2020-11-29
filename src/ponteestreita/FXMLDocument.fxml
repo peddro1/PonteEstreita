@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ponteestreita.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="915.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ponteestreita.FXMLDocumentController">
     <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
+        <Button fx:id="start" layoutX="639.0" layoutY="445.0" onAction="#handleButtonAction" text="Iniciar" />
+      <ImageView fitHeight="391.0" fitWidth="696.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagens/Ponte2.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tempoPermanencia" layoutX="14.0" layoutY="445.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label layoutX="207.0" layoutY="400.0" text="CRIAR CARRO" />
+      <Label layoutX="18.0" layoutY="428.0" text="TEMPO DE PERMANÊNICA" />
+      <Label layoutX="185.0" layoutY="428.0" text="TEMPO DE TRAVESSIA" />
+      <TextField fx:id="tempoTravessia" layoutX="170.0" layoutY="445.0" />
+      <Label layoutX="558.0" layoutY="400.0" text="PONTE" />
+      <Label layoutX="543.0" layoutY="428.0" text="PRIORIDADE" />
+      <Label layoutX="731.0" layoutY="428.0" text="ELIMINA CARRO" />
+      <TextField fx:id="eliminaCarroId" layoutX="700.0" layoutY="445.0" promptText="Id" />
+      <Button fx:id="eliminarCarro" layoutX="849.0" layoutY="445.0" mnemonicParsing="false" onAction="#eliminaCarro" text="Eliminar" />
+      <TableView layoutX="695.0" prefHeight="391.0" prefWidth="227.0">
+        <columns>
+          <TableColumn fx:id="ID" prefWidth="38.0" text="ID" />
+          <TableColumn fx:id="ESTADO" prefWidth="69.0" text="ESTADO" />
+            <TableColumn fx:id="TT" prefWidth="59.0" text="TT" />
+            <TableColumn fx:id="TP" prefWidth="60.0" text="TP" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="prioridade" layoutX="489.0" layoutY="445.0" prefWidth="150.0" />
+      <ComboBox fx:id="ladoPonte" layoutX="327.0" layoutY="445.0" prefHeight="25.0" prefWidth="134.0" />
+      <Label layoutX="348.0" layoutY="428.0" text="LADO DA PONTE" />
+      <Line endX="12.0" endY="-9.0625" layoutX="461.0" layoutY="400.0" startX="12.0" startY="98.5" />
+      <Line endX="10.0" endY="-16.0625" layoutX="685.0" layoutY="407.0" startX="9.0" startY="92.23040771484375" />
     </children>
 </AnchorPane>

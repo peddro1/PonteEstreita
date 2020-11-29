@@ -37,7 +37,7 @@ public class Controlador {
             
         }
     }
-    /*
+    
     public void mudarDirecaoCarro(Carro carro){
 	Direcao nova;
 	if(carro.getDirecaoCarro() == Direcao.Direita){
@@ -49,7 +49,7 @@ public class Controlador {
 	carro.setDirecaoCarro(nova);
 	System.out.println("Mudou "+nova);
     }
-    */
+    
     public static Controlador getInstancia() {
         return instancia;
     }

@@ -5,10 +5,27 @@
  */
 package ponteestreita;
 
+import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 /**
  *
  * @author anaad
  */
 public class Log {
+    private static BufferedWriter burfferedWriter;
+    private static FileWriter fileWriter;
+    
+    
+    public static void FazerLog( List<Carro> carros){
+        StringBuilder builder = new StringBuilder();
+        /*
+        for(Carro carro : carros){
+            builder.append("ID: " + carro.getId() + " DIRECAO: " + carro.getDirecaoCarro() + " ESTADO: " + carro.getEstado() + "\r\n");
+	}
+	FazerLog(builder.toString());
+    */
+    }
     
 }
