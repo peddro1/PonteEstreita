@@ -7,6 +7,7 @@ package ponteestreita;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.Animation;
 import ponteestreita.enums.Direcao;
 
 /**
@@ -18,7 +19,7 @@ public class Controlador {
     private Integer maximoCarros;
     private List<Carro> carrosJuntos;
     
-    private Controlador(Integer maximoCarros){
+    public Controlador(Integer maximoCarros){
         this.maximoCarros = maximoCarros;
         this.carrosJuntos = new ArrayList<Carro>();
         
@@ -37,6 +38,20 @@ public class Controlador {
             
         }
     }
+    
+    public void eliminarCarro(List<Carro> carrosJuntos, Integer id){
+        carrosJuntos.get(id).anime.elimina(carrosJuntos.get(id));
+        carrosJuntos.get(id).interrupt();
+        //System.out.println(carrosJuntos.get(id).getIdCarro());
+        
+    }
+    
+    public void addCarro(Carro carro){
+	carrosJuntos.add(carro);
+        
+    }
+    
+    
     
     public void mudarDirecaoCarro(Carro carro){
 	Direcao nova;
