@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.Animation;
 import ponteestreita.enums.Direcao;
+import ponteestreita.enums.Estado;
 
 /**
  *
@@ -25,10 +26,12 @@ public class Controlador {
         
     }
     
-    public static void novoControlador(Integer maximoCarros){
+    public static Controlador novoControlador(Integer maximoCarros){
         if(instancia == null){
             instancia = new Controlador(maximoCarros);
+            
         }
+        return instancia;
     }
     
     
@@ -40,6 +43,11 @@ public class Controlador {
     }
     
     public void eliminarCarro(List<Carro> carrosJuntos, Integer id){
+        
+        carrosJuntos.get(id).setId(-1);
+        carrosJuntos.get(id).setTempoEspera(-1.0);
+        carrosJuntos.get(id).setTempoTravessia(-1.0);
+        carrosJuntos.get(id).setEstado(Estado.Eliminado);
         carrosJuntos.get(id).anime.elimina(carrosJuntos.get(id));
         carrosJuntos.get(id).interrupt();
         //System.out.println(carrosJuntos.get(id).getIdCarro());

@@ -45,19 +45,73 @@ public class Carro extends Thread{
         
         image = new ImageView();
         
-        this.imagemCarroD = new Image("/imagens/carroD"+ (this.id+1) +".png");
-        this.imagemCarroE = new Image("/imagens/carroE"+ (this.id+1) +".png");
+        this.imagemCarroD = new Image("/imagens/carroD"+ ((this.id)+1) +".png");
+        this.imagemCarroE = new Image("/imagens/carroE"+ ((this.id)+1) +".png");
         this.anime = anime;
       
     }
     
     @Override
     public void run(){
-        try {
-            this.teste(this);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+        double tempoAnterior, tempoAtual;
+	tempoAtual = 0;
+	tempoAnterior = System.currentTimeMillis();
+	tempoEsperado = tempoAtravessando = 0.0;
+	Double tempoTravessiaAtual;
+        
+        while(true){
+            try {
+                
+                carroEspera(this, tempoAtual, tempoAnterior);
+                
+                Ponte.getInstancia().getMutex().acquire();
+                estado = Estado.Aguardando;
+                
+		//Log.doLog(ManuseadorDeCarros.manuseador().getCarros());	
+		if((Ponte.getInstancia().getDirecaoPonte()== Direcao.Nenhuma)||(direcaoCarro != Ponte.getInstancia().getDirecaoPonte())) {
+                    if (direcaoCarro != Ponte.getInstancia().getDirecaoPonte() && Ponte.getInstancia().getDirecaoPonte() != Direcao.Nenhuma) {
+			Ponte.getInstancia().setCarrosDoOutroLado(Ponte.getInstancia().getCarrosDoOutroLado() + 1);
+                    }
+                    Ponte.getInstancia().getMutex().release();
+                    
+                    Ponte.getInstancia().getMutex().acquire();
+                    Ponte.getInstancia().setDirecaoPonte(direcaoCarro);
+		}
+		Ponte.getInstancia().setCarros(Ponte.getCarros() + 1 );
+		Ponte.getInstancia().getMutex().release();
+                
+                carroAtravessa(this, tempoAtual, tempoAnterior);
+                
+                Ponte.getInstancia().getMutex().acquire();
+                Ponte.getInstancia().setCarros(Ponte.getCarros() - 1 );
+                
+                if(Ponte.getInstancia().getCarros() == 0){
+                    if(Ponte.getInstancia().getCarrosDoOutroLado() == 0){
+                        Ponte.getInstancia().setDirecaoPonte(Direcao.Nenhuma);
+                        Ponte.getInstancia().getLiberaPonte().release();
+                        Ponte.getInstancia().setCarrosDoOutroLado(0);
+                        
+                    }else{
+                        Ponte.getInstancia().setDirecaoPonte(Direcao.Nenhuma);
+                        Ponte.getInstancia().getLiberaPonte().release(Ponte.getInstancia().getCarrosDoOutroLado());
+                        Ponte.getInstancia().setCarrosDoOutroLado(0);
+                    }
+                
+                }
+                Ponte.getInstancia().getMutex().release();
+                
+                
+                Controlador.getInstancia().mudarDirecaoCarro(this);
+                estado = Estado.Parado;
+                
+                
+            
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        
         }
+        
         
     }
     
@@ -122,7 +176,52 @@ public class Carro extends Thread{
     }
     
     public void teste(Carro carro) throws InterruptedException{
-        anime.paraDireita(this);
+        anime.paraEsquerda(this);
+        
     }
+    
+    public void carroEspera(Carro carro, Double tempoAtual, Double tempoAnterior) throws InterruptedException{
+        
+        tempoAtual = Double.parseDouble(System.currentTimeMillis()+"");
+	tempoAnterior = tempoAtual;
+        
+        if(carro.getDirecaoCarro() == Direcao.Direita){
+            anime.stopE(carro);
+        }else{
+            anime.stopD(carro);
+        }
+        
+	while((tempoAtual - tempoAnterior)/1000 < tempoEspera){
+	
+         
+            tempoAtual = Double.parseDouble(System.currentTimeMillis()+"");
+            
+	
+        }
+        //tempoAtual = tempoAnterior = 0.0;
+    }
+    
+    public void carroAtravessa(Carro carro, Double tempoAtual,Double tempoAnterior){
+        
+        
+        tempoAtual = Double.parseDouble(System.currentTimeMillis()+"");
+	tempoAnterior = tempoAtual;
+    
+        carro.setEstado(Estado.Atravessando);
+        if(carro.getDirecaoCarro() == Direcao.Direita){
+            anime.paraDireita(carro);
+        }else{
+            anime.paraEsquerda(carro);
+        }
+        
+	while((tempoAtual - tempoAnterior)/1000 < tempoTravessia + 2){
+	//Log.doLog(ManuseadorDeCarros.manuseador().getCarros());
+         
+            tempoAtual = Double.parseDouble(System.currentTimeMillis()+"");
+            
+	}
+        //tempoAtual = tempoAnterior = 0.0;
+    }
+   
 }
 

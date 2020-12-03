@@ -22,7 +22,7 @@ public class Ponte {
     private Direcao direcaoPonte;
     private Direcao prioridade;
     
-    public static int carrosDoOutroLado;
+    public static int carrosDoOutroLado = 0;
     
     
     public Ponte( Direcao prioridade){
@@ -39,10 +39,11 @@ public class Ponte {
     }
     
     
-    public static void novaPonte( Direcao prioridade){
+    public static Ponte novaPonte( Direcao prioridade){
         if(instancia == null){
             instancia = new Ponte( prioridade);
         }
+        return instancia;
     }
 
     public static Ponte getInstancia() {

@@ -12,4 +12,6 @@ package ponteestreita.enums;
 public enum Estado {
     Parado,
     Aguardando,
+    Atravessando,
+    Eliminado
 }
