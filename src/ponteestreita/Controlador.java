@@ -49,7 +49,8 @@ public class Controlador {
         carrosJuntos.get(id).setTempoTravessia(-1.0);
         carrosJuntos.get(id).setEstado(Estado.Eliminado);
         carrosJuntos.get(id).anime.elimina(carrosJuntos.get(id));
-        carrosJuntos.get(id).interrupt();
+        carrosJuntos.set(id,carrosJuntos.get(id)).interrupt();
+        
         //System.out.println(carrosJuntos.get(id).getIdCarro());
         
     }

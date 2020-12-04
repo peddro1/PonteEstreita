@@ -59,7 +59,8 @@ public class Carro extends Thread{
 	tempoEsperado = tempoAtravessando = 0.0;
 	Double tempoTravessiaAtual;
         
-        while(true){
+        while(!isInterrupted()){
+        
             try {
                 
                 carroEspera(this, tempoAtual, tempoAnterior);
@@ -67,18 +68,18 @@ public class Carro extends Thread{
                 Ponte.getInstancia().getMutex().acquire();
                 estado = Estado.Aguardando;
                 
-		//Log.doLog(ManuseadorDeCarros.manuseador().getCarros());	
-		if((Ponte.getInstancia().getDirecaoPonte()== Direcao.Nenhuma)||(direcaoCarro != Ponte.getInstancia().getDirecaoPonte())) {
+                //Log.doLog(ManuseadorDeCarros.manuseador().getCarros());
+                if((Ponte.getInstancia().getDirecaoPonte()== Direcao.Nenhuma)||(direcaoCarro != Ponte.getInstancia().getDirecaoPonte())) {
                     if (direcaoCarro != Ponte.getInstancia().getDirecaoPonte() && Ponte.getInstancia().getDirecaoPonte() != Direcao.Nenhuma) {
-			Ponte.getInstancia().setCarrosDoOutroLado(Ponte.getInstancia().getCarrosDoOutroLado() + 1);
+                        Ponte.getInstancia().setCarrosDoOutroLado(Ponte.getInstancia().getCarrosDoOutroLado() + 1);
                     }
                     Ponte.getInstancia().getMutex().release();
                     
                     Ponte.getInstancia().getMutex().acquire();
                     Ponte.getInstancia().setDirecaoPonte(direcaoCarro);
-		}
-		Ponte.getInstancia().setCarros(Ponte.getCarros() + 1 );
-		Ponte.getInstancia().getMutex().release();
+                }
+                Ponte.getInstancia().setCarros(Ponte.getCarros() + 1 );
+                Ponte.getInstancia().getMutex().release();
                 
                 carroAtravessa(this, tempoAtual, tempoAnterior);
                 
@@ -104,12 +105,11 @@ public class Carro extends Thread{
                 Controlador.getInstancia().mudarDirecaoCarro(this);
                 estado = Estado.Parado;
                 
+                if(this.isInterrupted()) throw new InterruptedException();
                 
-            
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
-        
         }
         
         
@@ -183,44 +183,53 @@ public class Carro extends Thread{
     public void carroEspera(Carro carro, Double tempoAtual, Double tempoAnterior) throws InterruptedException{
         
         tempoAtual = Double.parseDouble(System.currentTimeMillis()+"");
-	tempoAnterior = tempoAtual;
+        tempoAnterior = tempoAtual;
+        
+        
         
         if(carro.getDirecaoCarro() == Direcao.Direita){
-            anime.stopE(carro);
+            //anime.stopE(carro);
         }else{
-            anime.stopD(carro);
+            //anime.stopD(carro);
         }
         
-	while((tempoAtual - tempoAnterior)/1000 < tempoEspera){
+        while((tempoAtual - tempoAnterior)/1000 < tempoEspera){
 	
-         
             tempoAtual = Double.parseDouble(System.currentTimeMillis()+"");
-            
 	
         }
-        //tempoAtual = tempoAnterior = 0.0;
+        System.out.println("parado " +carro.id);
+        
+                    
+        if(carro.isInterrupted())throw new InterruptedException();
     }
     
-    public void carroAtravessa(Carro carro, Double tempoAtual,Double tempoAnterior){
-        
+    public void carroAtravessa(Carro carro, Double tempoAtual,Double tempoAnterior) throws InterruptedException{
         
         tempoAtual = Double.parseDouble(System.currentTimeMillis()+"");
-	tempoAnterior = tempoAtual;
+        tempoAnterior = tempoAtual;
     
+        
+        
         carro.setEstado(Estado.Atravessando);
         if(carro.getDirecaoCarro() == Direcao.Direita){
-            anime.paraDireita(carro);
+            //anime.paraDireita(carro);
         }else{
-            anime.paraEsquerda(carro);
+            //anime.paraEsquerda(carro);
         }
         
-	while((tempoAtual - tempoAnterior)/1000 < tempoTravessia + 2){
-	//Log.doLog(ManuseadorDeCarros.manuseador().getCarros());
+        while((tempoAtual - tempoAnterior)/1000 < tempoTravessia +2 ){
+            //Log.doLog(ManuseadorDeCarros.manuseador().getCarros());
          
             tempoAtual = Double.parseDouble(System.currentTimeMillis()+"");
             
-	}
-        //tempoAtual = tempoAnterior = 0.0;
+        }
+             
+        System.out.println("atravessa " + carro.id);
+        
+        
+        if(carro.isInterrupted())throw new InterruptedException();
+        
     }
    
 }
