@@ -104,9 +104,6 @@ public class FXMLDocumentController implements Initializable {
     public Controlador control = Controlador.novoControlador(10);
     
     
-    
-    
-    
     @FXML
     private void startButton(ActionEvent event) {
       
@@ -120,15 +117,13 @@ public class FXMLDocumentController implements Initializable {
             prioridadePonte = Direcao.Nenhuma;
         }
         
-        
-        
         if(i==0){
             Ponte.novaPonte(prioridadePonte);
+            
             System.out.println("Criou Ponte");
         }
         
-        
-        
+       
         LadoPonte lado = ladoPonte.getSelectionModel().getSelectedItem();
         
         
@@ -146,6 +141,9 @@ public class FXMLDocumentController implements Initializable {
                 Double.parseDouble(tempoTravessia.getText()), 
                 direcaoCarro,
                 anime);
+        
+        
+        
         
         car.start();
         
@@ -258,6 +256,16 @@ public class FXMLDocumentController implements Initializable {
         Timeline playtime37 = new Timeline();
         Timeline playtime38 = new Timeline();
         Timeline playtime39 = new Timeline();
+        Timeline playtime40 = new Timeline();
+        Timeline playtime41 = new Timeline();
+        Timeline playtime42 = new Timeline();
+        Timeline playtime43 = new Timeline();
+        Timeline playtime44 = new Timeline();
+        Timeline playtime45 = new Timeline();
+        Timeline playtime46 = new Timeline();
+        Timeline playtime47 = new Timeline();
+        Timeline playtime48 = new Timeline();
+        Timeline playtime49 = new Timeline();
         
         @Override
         public void move(Carro carro,int x1,int y1, int x2, int y2, Image image, Integer flag) {	
@@ -275,6 +283,7 @@ public class FXMLDocumentController implements Initializable {
             switch(flag){
                 case 0:
                     pathTransition.setDuration(Duration.millis(1000));
+                    
                     break;
                 case 1:
                     pathTransition.setDuration(Duration.millis(carro.getTempoTravessia()*1000));
@@ -282,6 +291,8 @@ public class FXMLDocumentController implements Initializable {
                 case 2:
                     pathTransition.setDuration(Duration.millis(carro.getTempoEspera()*1000));
                     break;
+                case 3:
+                    pathTransition.setDuration(Duration.millis(1000));
             }
             
             pathTransition.setPath(path);
@@ -289,6 +300,10 @@ public class FXMLDocumentController implements Initializable {
             pathTransition.setNode(carro.image);
             //pathTransition.setOrientation();
             pathTransition.setCycleCount(1);
+            
+            if(flag == 3)
+                pathTransition.setCycleCount(1000);
+            
             pathTransition.setAutoReverse(false);
             
             pathTransition.play();
@@ -304,14 +319,14 @@ public class FXMLDocumentController implements Initializable {
             switch(carro.getIdCarro()){
                 case 0:
                     
-                    playtime20.getKeyFrames().addAll(
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,61,35,41,35,carro.imagemCarroD, 2)),
+                    playtime20.getKeyFrames().setAll(
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,35,40,35,carro.imagemCarroD, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
                        );
                     playtime20.play();  
                     break;
                 case 1:
-                    playtime21.getKeyFrames().addAll(
+                    playtime21.getKeyFrames().setAll(
                         new KeyFrame(Duration.seconds(0), event ->move(carro,61,70,40,70,carro.imagemCarroD, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
                         );
@@ -319,7 +334,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                    
                 case 2:
-                    playtime22.getKeyFrames().addAll(
+                    playtime22.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,61,100,40,100,carro.imagemCarroD, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -329,7 +344,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 3:
-                    playtime23.getKeyFrames().addAll(
+                    playtime23.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,61,140,40,140,carro.imagemCarroD, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -338,7 +353,7 @@ public class FXMLDocumentController implements Initializable {
                     playtime23.play();  
                     break;
                 case 4:
-                    playtime24.getKeyFrames().addAll(
+                    playtime24.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,61,200,40,200,carro.imagemCarroD, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -348,14 +363,14 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 5:
-                    playtime25.getKeyFrames().addAll(
+                    playtime25.getKeyFrames().setAll(
                         new KeyFrame(Duration.seconds(0), event ->move(carro,61,230,40,230,carro.imagemCarroD, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
                         );
                     playtime25.play();  
                     break;
                 case 6:
-                    playtime26.getKeyFrames().addAll(
+                    playtime26.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,61,265,40,265,carro.imagemCarroD, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -365,7 +380,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                    
                 case 7:
-                    playtime27.getKeyFrames().addAll(
+                    playtime27.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,61,295,40,295,carro.imagemCarroD, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -375,7 +390,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 8:
-                    playtime28.getKeyFrames().addAll(
+                    playtime28.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,61,330,40,330,carro.imagemCarroD, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -384,7 +399,7 @@ public class FXMLDocumentController implements Initializable {
                     playtime28.play();  
                     break;
                 case 9:
-                    playtime29.getKeyFrames().addAll(
+                    playtime29.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,61,360,40,360,carro.imagemCarroD, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -401,14 +416,14 @@ public class FXMLDocumentController implements Initializable {
         public void stopD(Carro carro) {
             switch(carro.getIdCarro()){
                 case 0:
-                    playtime30.getKeyFrames().addAll(
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,621,35,641,35,carro.imagemCarroE, 2)),
+                    playtime30.getKeyFrames().setAll(
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,620,35,640,35,carro.imagemCarroE, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
                        );
                     playtime30.play();  
                     break;
                 case 1:
-                    playtime31.getKeyFrames().addAll(
+                    playtime31.getKeyFrames().setAll(
                         new KeyFrame(Duration.seconds(0), event ->move(carro,621,70,641,70,carro.imagemCarroE, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
                         );
@@ -416,7 +431,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                    
                 case 2:
-                    playtime32.getKeyFrames().addAll(
+                    playtime32.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,621,100,641,100,carro.imagemCarroE, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -426,7 +441,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 3:
-                    playtime33.getKeyFrames().addAll(
+                    playtime33.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,621,140,641,140,carro.imagemCarroE, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -435,7 +450,7 @@ public class FXMLDocumentController implements Initializable {
                     playtime33.play();  
                     break;
                 case 4:
-                    playtime34.getKeyFrames().addAll(
+                    playtime34.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,621,200,641,200,carro.imagemCarroE, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -445,14 +460,14 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 5:
-                    playtime35.getKeyFrames().addAll(
+                    playtime35.getKeyFrames().setAll(
                         new KeyFrame(Duration.seconds(0), event ->move(carro,621,230,641,230,carro.imagemCarroE, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
                         );
                     playtime35.play();  
                     break;
                 case 6:
-                    playtime36.getKeyFrames().addAll(
+                    playtime36.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,621,265,641,265,carro.imagemCarroE, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -462,7 +477,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                    
                 case 7:
-                    playtime37.getKeyFrames().addAll(
+                    playtime37.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,621,295,641,295,carro.imagemCarroE, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -472,7 +487,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 8:
-                    playtime38.getKeyFrames().addAll(
+                    playtime38.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,621,330,641,330,carro.imagemCarroE, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -481,7 +496,7 @@ public class FXMLDocumentController implements Initializable {
                     playtime38.play();  
                     break;
                 case 9:
-                    playtime39.getKeyFrames().addAll(
+                    playtime39.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,621,360,641,360,carro.imagemCarroE, 2)),
                         new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
@@ -494,12 +509,101 @@ public class FXMLDocumentController implements Initializable {
 
         @Override
         public void aguarda(Carro carro) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            switch(carro.getIdCarro()){
+                case 0:
+                    playtime40.getKeyFrames().setAll(
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,321,35,341,35,carro.imagemCarroE, 3)),
+                        new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image))
+                       );
+                    playtime40.play();  
+                    break;
+                case 1:
+                    playtime41.getKeyFrames().setAll(
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,321,70,341,70,carro.imagemCarroE, 3)),
+                        new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
+                        );
+                    playtime41.play();  
+                    break;
+                   
+                case 2:
+                    playtime42.getKeyFrames().setAll(
+                            
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,321,100,341,100,carro.imagemCarroE, 3)),
+                        new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
+                        
+                        );
+                    playtime42.play();  
+                    break;
+                    
+                case 3:
+                    playtime43.getKeyFrames().setAll(
+                            
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,621,140,641,140,carro.imagemCarroE, 2)),
+                        new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
+                        
+                       );
+                    playtime43.play();  
+                    break;
+                case 4:
+                    playtime44.getKeyFrames().setAll(
+                            
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,621,200,641,200,carro.imagemCarroE, 2)),
+                        new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
+                        
+                        );
+                    playtime44.play();  
+                    break;
+                    
+                case 5:
+                    playtime45.getKeyFrames().setAll(
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,621,230,641,230,carro.imagemCarroE, 2)),
+                        new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
+                        );
+                    playtime45.play();  
+                    break;
+                case 6:
+                    playtime46.getKeyFrames().setAll(
+                            
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,621,265,641,265,carro.imagemCarroE, 2)),
+                        new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
+                        
+                        );
+                    playtime46.play();  
+                    break;
+                   
+                case 7:
+                    playtime47.getKeyFrames().setAll(
+                            
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,621,295,641,295,carro.imagemCarroE, 2)),
+                        new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
+                        
+                        );
+                    playtime47.play();  
+                    break;
+                    
+                case 8:
+                    playtime48.getKeyFrames().setAll(
+                            
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,621,330,641,330,carro.imagemCarroE, 2)),
+                        new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
+                        
+                        );
+                    playtime48.play();  
+                    break;
+                case 9:
+                    playtime49.getKeyFrames().setAll(
+                            
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,621,360,641,360,carro.imagemCarroE, 2)),
+                        new KeyFrame(Duration.seconds(carro.getTempoEspera()), event ->anchor.getChildren().remove(carro.image))
+                        
+                        );
+                    playtime49.play();  
+                    break;
+            }
+            
+            
         }
-        
-        
-      
-        
+   
        
         
         @Override
@@ -508,7 +612,7 @@ public class FXMLDocumentController implements Initializable {
             switch(carro.getIdCarro()){
                 case 0:
                     //61,35,40,35,
-                    playtime0.getKeyFrames().addAll(
+                    playtime0.getKeyFrames().setAll(
                         new KeyFrame(Duration.seconds(0), event ->move(carro,620,34,620,155,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,620,155,60,155,carro.imagemCarroE, 1)),
@@ -516,10 +620,11 @@ public class FXMLDocumentController implements Initializable {
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,60,155,60,34,carro.imagemCarroD,0)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+2)), event ->anchor.getChildren().remove(carro.image))
                 	);
-                    playtime0.play();  
+                    playtime0.play(); 
+                    //playtime0.getKeyFrames().removeAll();
                     break;
                 case 1:
-                    playtime1.getKeyFrames().addAll(
+                    playtime1.getKeyFrames().setAll(
                         new KeyFrame(Duration.seconds(0), event ->move(carro,620,69,620,165,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,620,165,60,165,carro.imagemCarroE, 1)),
@@ -531,7 +636,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                    
                 case 2:
-                    playtime2.getKeyFrames().addAll(
+                    playtime2.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,620,99,620,160,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
@@ -545,7 +650,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 3:
-                    playtime3.getKeyFrames().addAll(
+                    playtime3.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,620,139,620,155,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
@@ -558,7 +663,7 @@ public class FXMLDocumentController implements Initializable {
                     playtime3.play();  
                     break;
                 case 4:
-                    playtime4.getKeyFrames().addAll(
+                    playtime4.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,620,199,620,170,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
@@ -572,7 +677,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 5:
-                    playtime5.getKeyFrames().addAll(
+                    playtime5.getKeyFrames().setAll(
                         new KeyFrame(Duration.seconds(0), event ->move(carro,620,229,620,155,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,620,155,60,155,carro.imagemCarroE, 1)),
@@ -583,7 +688,7 @@ public class FXMLDocumentController implements Initializable {
                     playtime5.play();  
                     break;
                 case 6:
-                    playtime6.getKeyFrames().addAll(
+                    playtime6.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,620,264,620,165,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
@@ -597,7 +702,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                    
                 case 7:
-                    playtime7.getKeyFrames().addAll(
+                    playtime7.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,620,294,620,160,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
@@ -611,7 +716,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 8:
-                    playtime8.getKeyFrames().addAll(
+                    playtime8.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,620,329,620,155,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
@@ -624,7 +729,7 @@ public class FXMLDocumentController implements Initializable {
                     playtime8.play();  
                     break;
                 case 9:
-                    playtime9.getKeyFrames().addAll(
+                    playtime9.getKeyFrames().setAll(
                             
                         new KeyFrame(Duration.seconds(0), event ->move(carro,620,359,620,170,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
@@ -647,36 +752,37 @@ public class FXMLDocumentController implements Initializable {
             switch(carro.getIdCarro()){
                 case 0:
                     //621,35,600,35
-                    playtime10.getKeyFrames().addAll(
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,35,60,155,carro.imagemCarroD, 0)),
+                    playtime10.getKeyFrames().setAll(
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,34,60,155,carro.imagemCarroD, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,60,155,620,155,carro.imagemCarroD, 1)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->anchor.getChildren().remove(carro.image)),
-                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,155,620,35,carro.imagemCarroE,0)),
+                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,155,620,34,carro.imagemCarroE,0)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+2)), event ->anchor.getChildren().remove(carro.image))
                 	);
                     playtime10.play();  
+                    
                     break;
                 case 1:
-                    playtime11.getKeyFrames().addAll(
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,70,60,165,carro.imagemCarroD, 0)),
+                    playtime11.getKeyFrames().setAll(
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,69,60,165,carro.imagemCarroD, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,60,165,620,165,carro.imagemCarroD, 1)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->anchor.getChildren().remove(carro.image)),
-                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,165,620,70,carro.imagemCarroE, 0)),
+                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,165,620,69,carro.imagemCarroE, 0)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+2)), event ->anchor.getChildren().remove(carro.image))
                 	);
                     playtime11.play();  
                     break;
                    
                 case 2:
-                    playtime12.getKeyFrames().addAll(
+                    playtime12.getKeyFrames().setAll(
                             
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,100,60,160,carro.imagemCarroD, 0)),
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,99,60,160,carro.imagemCarroD, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,60,160,620,160,carro.imagemCarroD, 1)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->anchor.getChildren().remove(carro.image)),
-                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,160,620,100,carro.imagemCarroE,0)),
+                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,160,620,99,carro.imagemCarroE,0)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+2)), event ->anchor.getChildren().remove(carro.image))
                 	
                         );
@@ -684,26 +790,26 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 3:
-                    playtime13.getKeyFrames().addAll(
+                    playtime13.getKeyFrames().setAll(
                             
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,140,60,155,carro.imagemCarroD, 0)),
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,139,60,155,carro.imagemCarroD, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,60,155,620,155,carro.imagemCarroD,1)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->anchor.getChildren().remove(carro.image)),
-                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,155,620,140,carro.imagemCarroE,0)),
+                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,155,620,139,carro.imagemCarroE,0)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+2)), event ->anchor.getChildren().remove(carro.image))
                 	
                        );
                     playtime13.play();  
                     break;
                 case 4:
-                    playtime14.getKeyFrames().addAll(
+                    playtime14.getKeyFrames().setAll(
                             
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,200,60,170,carro.imagemCarroD, 0)),
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,199,60,170,carro.imagemCarroD, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,60,170,620,170,carro.imagemCarroD,1)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->anchor.getChildren().remove(carro.image)),
-                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,170,620,200,carro.imagemCarroE,0)),
+                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,170,620,199,carro.imagemCarroE,0)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+2)), event ->anchor.getChildren().remove(carro.image))
                 	
                         );
@@ -711,7 +817,7 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 5:
-                    playtime15.getKeyFrames().addAll(
+                    playtime15.getKeyFrames().setAll(
                         new KeyFrame(Duration.seconds(0), event ->move(carro,60,230,60,155,carro.imagemCarroD, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,60,155,620,155,carro.imagemCarroD, 1)),
@@ -722,13 +828,13 @@ public class FXMLDocumentController implements Initializable {
                     playtime15.play();  
                     break;
                 case 6:
-                    playtime16.getKeyFrames().addAll(
+                    playtime16.getKeyFrames().setAll(
                             
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,265,60,165,carro.imagemCarroD, 0)),
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,264,60,165,carro.imagemCarroD, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,60,165,620,165,carro.imagemCarroD, 1)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->anchor.getChildren().remove(carro.image)),
-                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,165,620,265,carro.imagemCarroE,0)),
+                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,165,620,264,carro.imagemCarroE,0)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+2)), event ->anchor.getChildren().remove(carro.image))
                 	
                         );
@@ -736,13 +842,13 @@ public class FXMLDocumentController implements Initializable {
                     break;
                    
                 case 7:
-                    playtime17.getKeyFrames().addAll(
+                    playtime17.getKeyFrames().setAll(
                             
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,295,60,160,carro.imagemCarroD, 0)),
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,294,60,160,carro.imagemCarroD, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,60,160,620,160,carro.imagemCarroD, 1)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->anchor.getChildren().remove(carro.image)),
-                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,160,620,295,carro.imagemCarroE,0)),
+                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,160,620,294,carro.imagemCarroE,0)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+2)), event ->anchor.getChildren().remove(carro.image))
                 	
                         );
@@ -750,26 +856,26 @@ public class FXMLDocumentController implements Initializable {
                     break;
                     
                 case 8:
-                    playtime18.getKeyFrames().addAll(
+                    playtime18.getKeyFrames().setAll(
                             
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,330,60,155,carro.imagemCarroD, 0)),
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,329,60,155,carro.imagemCarroD, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,60,155,620,155,carro.imagemCarroD, 1)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->anchor.getChildren().remove(carro.image)),
-                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,155,620,330,carro.imagemCarroE,0)),
+                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,155,620,329,carro.imagemCarroE,0)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+2)), event ->anchor.getChildren().remove(carro.image))
                 	
                         );
                     playtime18.play();  
                     break;
                 case 9:
-                    playtime19.getKeyFrames().addAll(
+                    playtime19.getKeyFrames().setAll(
                             
-                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,360,60,170,carro.imagemCarroD, 0)),
+                        new KeyFrame(Duration.seconds(0), event ->move(carro,60,359,60,170,carro.imagemCarroD, 0)),
                         new KeyFrame(Duration.seconds(1), event ->anchor.getChildren().remove(carro.image)),
                         new KeyFrame(Duration.seconds(1), event ->move(carro,60,170,620,170,carro.imagemCarroD, 1)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->anchor.getChildren().remove(carro.image)),
-                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,170,620,360,carro.imagemCarroE,0)),
+                        new KeyFrame(Duration.seconds((carro.getTempoTravessia()+1)), event ->move(carro,620,170,620,359,carro.imagemCarroE,0)),
                         new KeyFrame(Duration.seconds((carro.getTempoTravessia()+2)), event ->anchor.getChildren().remove(carro.image))
                 	
                         );
@@ -786,14 +892,13 @@ public class FXMLDocumentController implements Initializable {
         public void elimina(Carro carro) {
             
             
-            
-            
             switch(carro.getIdCarro()){
                 case 0:
                     playtime0.stop();
                     playtime10.stop();
                     playtime20.stop();
                     playtime30.stop();
+                    
                     break;
                 case 1:
                     playtime1.stop();

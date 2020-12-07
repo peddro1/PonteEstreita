@@ -15,8 +15,8 @@ import ponteestreita.enums.Direcao;
 public class Ponte {
     private static Ponte instancia = null;
     private Double tamanho;
-    public static Semaphore liberaPonte = new Semaphore(1,true);   //controle da ponte
-    public static Semaphore mutex = new Semaphore(1,true);        //controle da regiao critica
+    public static Semaphore liberaPonte = new Semaphore(1);   //controle da ponte
+    public static Semaphore mutex = new Semaphore(1);        //controle da regiao critica
     public static int carros = 0;                                 //carros na ponte
     
     private Direcao direcaoPonte;
@@ -109,6 +109,7 @@ public class Ponte {
     public static void setCarrosDoOutroLado(int carrosDoOutroLado) {
         Ponte.carrosDoOutroLado = carrosDoOutroLado;
     }
+    
     
     
 }
