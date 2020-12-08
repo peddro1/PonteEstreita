@@ -68,7 +68,7 @@ public class Carro extends Thread{
         double tempoAnterior = 0, tempoAtual = 0;
 	
         
-        while(!isInterrupted()){
+        while(!this.isInterrupted()){
             
             
         
@@ -81,12 +81,13 @@ public class Carro extends Thread{
                 Ponte.getInstancia().getMutex().acquire();
                
                 
-                //Log.doLog(ManuseadorDeCarros.manuseador().getCarros());
-                if((Ponte.getInstancia().getDirecaoPonte()== Direcao.Nenhuma)||(direcaoCarro != Ponte.getInstancia().getDirecaoPonte())) {
-                    if (direcaoCarro != Ponte.getInstancia().getDirecaoPonte() && Ponte.getInstancia().getDirecaoPonte() != Direcao.Nenhuma) {
+                
+                if((Ponte.getInstancia().getDirecaoPonte()== Direcao.Nenhuma)||(this.getDirecaoCarro() != Ponte.getInstancia().getDirecaoPonte())) {
+                    if (this.getDirecaoCarro() != Ponte.getInstancia().getDirecaoPonte()&& Ponte.getInstancia().getDirecaoPonte() != Direcao.Nenhuma) {
                         
                         Ponte.getInstancia().setCarrosDoOutroLado(Ponte.getInstancia().getCarrosDoOutroLado() + 1);
-                        //this.carroAguarda(this);
+                        this.setEstado(estado.Aguardando);
+                        this.anime.mostraEstado(this);
                         
                     }
                     Ponte.getInstancia().getMutex().release();
@@ -94,7 +95,7 @@ public class Carro extends Thread{
                     Ponte.getInstancia().getLiberaPonte().acquire();
                     
                     Ponte.getInstancia().getMutex().acquire();
-                    Ponte.getInstancia().setDirecaoPonte(direcaoCarro);
+                    Ponte.getInstancia().setDirecaoPonte(this.getDirecaoCarro());
                 }
                 Ponte.getInstancia().setCarros(Ponte.getInstancia().getCarros() + 1 );
                 Ponte.getInstancia().getMutex().release();
@@ -107,13 +108,16 @@ public class Carro extends Thread{
                 
                 if(Ponte.getInstancia().getCarros() == 0){
                     if(Ponte.getInstancia().getCarrosDoOutroLado() == 0){
+                       
                         Ponte.getInstancia().setDirecaoPonte(Direcao.Nenhuma);
                         Ponte.getInstancia().getLiberaPonte().release();
+                        System.out.println(Ponte.getInstancia().getLiberaPonte().toString());
                         Ponte.getInstancia().setCarrosDoOutroLado(0);
                         
                     }else{
                         Ponte.getInstancia().setDirecaoPonte(Direcao.Nenhuma);
                         Ponte.getInstancia().getLiberaPonte().release(Ponte.getInstancia().getCarrosDoOutroLado());
+                        System.out.println(Ponte.getInstancia().getLiberaPonte().toString());
                         Ponte.getInstancia().setCarrosDoOutroLado(0);
                     }
                 
@@ -125,7 +129,19 @@ public class Carro extends Thread{
                 Controlador.getInstancia().mudarDirecaoCarro(this);
                 this.estado = Estado.Parado;
                 
-                if(this.isInterrupted()) throw new InterruptedException();
+                if(this.isInterrupted()) {
+                    if(this.getState()==Thread.State.BLOCKED){
+                        //Ponte.getInstancia().setCarrosDoOutroLado(Ponte.getInstancia().getCarrosDoOutroLado() - 1);
+                 
+                        Ponte.getInstancia().getLiberaPonte().release();
+                        //Ponte.getInstancia().getMutex().release();
+                        Ponte.getInstancia().setDirecaoPonte(Direcao.Nenhuma);
+                        throw new InterruptedException();
+                    
+                    }
+                
+                }
+                
                 
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
@@ -212,14 +228,17 @@ public class Carro extends Thread{
     
     public void carroEspera(Carro carro, Double tempoAtual, Double tempoAnterior) throws InterruptedException{
         
+        carro.anime.mostraEstado(carro);
+        
         tempoAtual = Double.parseDouble(System.currentTimeMillis()+"");
         tempoAnterior = tempoAtual;
         
         
+        
         if(carro.getDirecaoCarro() == Direcao.Direita){
-            anime.stopE(carro);
+            carro.anime.stopE(carro);
         }else{
-            anime.stopD(carro);
+            carro.anime.stopD(carro);
         }
         
         while((tempoAtual - tempoAnterior)/1000 < tempoEspera){
@@ -229,25 +248,29 @@ public class Carro extends Thread{
         }
         System.out.println("parado " +carro.id);
         
+        
                     
         if(carro.isInterrupted())throw new InterruptedException();
+        
+        
         
     }
     
     public void carroAtravessa(Carro carro, Double tempoAtual,Double tempoAnterior) throws InterruptedException{
         
-       
+        carro.setEstado(Estado.Atravessando);
+        
+        carro.anime.mostraEstado(carro);
         
         tempoAtual = Double.parseDouble(System.currentTimeMillis()+"");
         tempoAnterior = tempoAtual;
     
         
-        carro.setEstado(Estado.Atravessando);
         
         if(carro.getDirecaoCarro() == Direcao.Direita){
-            anime.paraDireita(carro);
+            carro.anime.paraDireita(carro);
         }else{
-            anime.paraEsquerda(carro);
+            carro.anime.paraEsquerda(carro);
         }
         
         while((tempoAtual - tempoAnterior)/1000 < tempoTravessia +2 ){
@@ -258,24 +281,25 @@ public class Carro extends Thread{
         }
              
         System.out.println("atravessa " + carro.id);
-        System.out.println(Ponte.getInstancia().getLiberaPonte().toString());
         
         
-        if(carro.isInterrupted())throw new InterruptedException();
         
-    }
-    
-     public void carroAguarda(Carro carro) throws InterruptedException{
-        
-        carro.setEstado(Estado.Aguardando);
-        
-        while(Ponte.getInstancia().getLiberaPonte().availablePermits() == 0){
-            anime.aguarda(carro);
+        if(carro.isInterrupted()){
             
+            //Ponte.getInstancia().setCarrosDoOutroLado(Ponte.getInstancia().getCarrosDoOutroLado() - 1);
+            Ponte.getInstancia().getLiberaPonte().release();
+            Ponte.getInstancia().setDirecaoPonte(Direcao.Nenhuma);  
+            System.out.println(Ponte.getInstancia().getLiberaPonte().toString());
+            throw new InterruptedException();
+        
         
         }
         
+
+        
         
     }
+    
+     
 }
 

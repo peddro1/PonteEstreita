@@ -7,6 +7,8 @@ package ponteestreita;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Animation;
 import ponteestreita.enums.Direcao;
 import ponteestreita.enums.Estado;
@@ -42,16 +44,24 @@ public class Controlador {
         }
     }
     
-    public void eliminarCarro(List<Carro> carrosJuntos, Integer id){
+    public void eliminarCarro (List<Carro> carrosJuntos, Integer id){
         
-        carrosJuntos.get(id).setId(-1);
+       
+        carrosJuntos.get(id).anime.elimina(carrosJuntos.get(id));
+        
+        
+        carrosJuntos.get(id).interrupt();
+        
+        
         carrosJuntos.get(id).setTempoEspera(-1.0);
         carrosJuntos.get(id).setTempoTravessia(-1.0);
         carrosJuntos.get(id).setEstado(Estado.Eliminado);
-        carrosJuntos.get(id).anime.elimina(carrosJuntos.get(id));
-        carrosJuntos.set(id,carrosJuntos.get(id)).interrupt();
         
-        //System.out.println(carrosJuntos.get(id).getIdCarro());
+        
+        //System.out.println(Ponte.getInstancia().getLiberaPonte().toString());
+        
+        
+        System.out.println(carrosJuntos.get(id).isInterrupted());
         
     }
     

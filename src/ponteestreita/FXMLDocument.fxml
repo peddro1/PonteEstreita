@@ -32,9 +32,9 @@
       <TableView fx:id="table" layoutX="695.0" prefHeight="391.0" prefWidth="227.0">
         <columns>
           <TableColumn fx:id="ID" prefWidth="38.0" text="ID" />
-          <TableColumn fx:id="ESTADO" prefWidth="69.0" text="ESTADO" />
-            <TableColumn fx:id="TT" prefWidth="59.0" text="TT" />
-            <TableColumn fx:id="TP" prefWidth="60.0" text="TP" />
+          <TableColumn fx:id="ESTADO" prefWidth="93.0" text="ESTADO" />
+            <TableColumn fx:id="TT" prefWidth="49.0" text="TT" />
+            <TableColumn fx:id="TP" prefWidth="46.0" text="TP" />
         </columns>
       </TableView>
       <ComboBox fx:id="prioridade" layoutX="489.0" layoutY="445.0" prefWidth="150.0" />

@@ -17,7 +17,7 @@ public interface Animations {
     void paraDireita(Carro carro);
     void stopE(Carro carro);
     void stopD(Carro carro);
-    void aguarda(Carro carro);
+    void mostraEstado(Carro carro);
     void move(Carro carro, int x1, int y1, int x2, int y2, Image image, Integer flag);
     void elimina(Carro carro);
     
